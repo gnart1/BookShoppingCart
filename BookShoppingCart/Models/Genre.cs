@@ -1,16 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookShoppingCart.Models
 {
-    public class Book
+    [Table("Genre")]
+    public class Genre
     {
-        
         public int Id { get; set; }
         [Required]
         [MaxLength(32)]
-        public string? BookName { get; set; }
-        [Required]
-        public int GenreId { get; set; }
-        public Genre Genre;
+        public string GenreName { get; set; }
+        public List<Book> Books;
     }
 }
