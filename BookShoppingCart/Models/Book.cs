@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookShoppingCart.Models
 {
+    [Table("Book")]
     public class Book
     {
         
@@ -9,8 +11,12 @@ namespace BookShoppingCart.Models
         [Required]
         [MaxLength(32)]
         public string? BookName { get; set; }
+        public double Price { get; set; }
+        public string? Image { get; set; }
         [Required]
         public int GenreId { get; set; }
-        public Genre Genre;
+        public Genre Genre { get; set; }
+        public List<OrderDetail> OrderDetail { get; set; }
+        public List<CartDetail> CartDetail { get; set; }
     }
 }

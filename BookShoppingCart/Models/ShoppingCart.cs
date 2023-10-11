@@ -9,7 +9,7 @@ namespace BookShoppingCart.Models
         public int Id { get; set; }
         [Required]
         public string UserName { get; set;}
-        public bool IsDeleted { get; set;} = false
+        public bool IsDeleted { get; set; } = false;
 
     }
 }
