@@ -11,6 +11,8 @@ namespace BookShoppingCart.Models
         [Required]
         [MaxLength(32)]
         public string? BookName { get; set; }
+        public string? AuthorName { get; set; }
+        [Required]
         public double Price { get; set; }
         public string? Image { get; set; }
         [Required]
@@ -18,5 +20,8 @@ namespace BookShoppingCart.Models
         public Genre Genre { get; set; }
         public List<OrderDetail> OrderDetail { get; set; }
         public List<CartDetail> CartDetail { get; set; }
+        
+        [NotMapped] 
+        public string GenreName { get; set; }
     }
 }
