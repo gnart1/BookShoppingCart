@@ -32,7 +32,7 @@ a.button:hover {
                     <th>Tên sách</th>
                     <th>Ảnh</th>
                     <th>Thể loại</th>
-                    <th>Đơn giá(VNĐ)</th>
+                    <th>Đơn giá</th>
                     <th>Số lượng</th>
                     <th>Thành tiền</th>
                     <th></th>
@@ -42,7 +42,7 @@ a.button:hover {
             @foreach (var item in Model.CartDetails)
             {
                 <tr>
-                    <td>@item.Book.BookName</td>
+                    <td style="text-align:left">@item.Book.BookName</td>
                     <td>
                         @if (string.IsNullOrEmpty(item.Book.Image))
                         {
@@ -54,13 +54,13 @@ a.button:hover {
                         }
                     </td>
                     <td>@item.Book.Genre.GenreName</td>
-                    <td>@item.Book.Price</td>
+                    <td>@item.Book.Price VNĐ</td>
                         <td>
                             <a class="btn btn-info" href="/Cart/RemoveItem?bookId=@item.BookId"> - </a>
                             <span>@item.Quantity</span>
                             <a class="btn btn-info" href="/Cart/AddItem?bookId=@item.BookId&&redirect=1">+</a>
                         </td>
-                    <td>@(item.Book.Price * item.Quantity)</td>
+                    <td>@(item.Book.Price * item.Quantity) VNĐ</td>
                     <td>
                             <a style="color:black" href="/Cart/DeleteItem?bookId=@item.BookId"><i class="bi bi-trash"></i></a>
                     </td>
@@ -69,10 +69,10 @@ a.button:hover {
             </tbody>
         </table>
         <div class="my-2">
-            <h5>Tổng tiền(VNĐ): </h5> @(Model.CartDetails.Select(item => item.Book.Price * item.Quantity).Sum())
+            <h5>Tổng tiền(VNĐ): </h5> @(Model.CartDetails.Select(item => item.Book.Price * item.Quantity).Sum()) VNĐ
         </div>
         <div class="my-2">
-            <a class="btn btn-primary" href="#">CheckOut</a>
+            <a class="btn btn-primary" href="/Cart/CheckOut">CheckOut</a>
         </div>
     }
     else

@@ -46,11 +46,13 @@ namespace BookShoppingCart.Repositories
                 }
                 else
                 {
+                    var book = _context.Books.Find(bookId);
                     cartItem = new CartDetail
                     {
                         BookId = bookId,
                         ShoppingCartId = cart.Id,
-                        Quantity = quantity
+                        Quantity = quantity,
+                        UnitPrice = book.Price
 
                     };
                     _context.CartDetails.Add(cartItem);
@@ -167,6 +169,61 @@ namespace BookShoppingCart.Repositories
                         select new {cartDetail.Id}
                         ).ToListAsync();
             return data.Count;
+        }
+        public async Task<bool> DoCheckOut()
+        {
+            using var transaction = _context.Database.BeginTransaction(); 
+            try
+            {
+                //di chuyển dữ liệu từ cartDetail sang order và orderdetail sau đó xóa cartdetail
+                var userId = GetUserId();
+                if (string.IsNullOrEmpty(userId))
+                {
+                    throw new Exception("Chua dang nhap");
+                }
+                var cart = await GetCart(userId);
+                if (cart == null)
+                {
+                    throw new Exception("Gio hang trong");
+                }
+                var cartDetail = _context.CartDetails.Where(a =>a.ShoppingCartId == cart.Id).ToList();
+                if (cartDetail.Count == 0)
+                {
+                    throw new Exception("Gio hang trong");
+                }
+                var order = new Order
+                {
+                    UserId = userId,
+                    CreateDate = DateTime.UtcNow,
+                    OrderStatusId = 1, //pending
+
+                };
+                _context.Orders.Add(order);
+                _context.SaveChanges();
+                foreach(var item in cartDetail)
+                {
+                    var orderDetail = new OrderDetail
+                    {
+                        BookId = item.BookId,
+                        OrderId = order.Id,
+                        Quantity = item.Quantity,
+                        UnitPrice = item.UnitPrice,
+
+                    };
+                    _context.OrderDetails.Add(orderDetail);
+                }
+                _context.SaveChanges();
+
+                //remove cartdetail
+                _context.CartDetails.RemoveRange(cartDetail);
+                _context.SaveChanges();
+                transaction.Commit();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
         private string GetUserId()
         {

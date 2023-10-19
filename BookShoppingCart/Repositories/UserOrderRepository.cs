@@ -24,7 +24,9 @@ namespace BookShoppingCart.Repositories
             {
                 throw new Exception("chua dang nhap tai khoan");
             }
-            var orders = await _context.Orders.Include(x=>x.OrderDetail)
+            var orders = await _context.Orders
+                        .Include(x => x.OrderStatus)
+                        .Include(x=>x.OrderDetail)
                         .ThenInclude(x=>x.Book)
                         .ThenInclude(x => x.Genre)
                         .Where(a=>a.UserId == userId).ToListAsync();
