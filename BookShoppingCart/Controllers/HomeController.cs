@@ -24,7 +24,9 @@ namespace BookShoppingCart.Controllers
             BookDisplayModel bookDisplayModel = new BookDisplayModel 
             { 
                 Books = books,
-                Genres = genres
+                Genres = genres,
+                Temp = temp,
+                GenreId = genreId
             };
             return View(bookDisplayModel);
         }
