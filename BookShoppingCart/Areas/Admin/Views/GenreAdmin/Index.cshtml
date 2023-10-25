@@ -1,0 +1,42 @@
+﻿@model IEnumerable<BookShoppingCart.Areas.Admin.Models.GenreViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Thể loại</h1>
+
+<p>
+    <a asp-action="Create">Thêm thể loại</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @* @Html.DisplayNameFor(model => model.GenreName) *@
+                Thể loại
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GenreName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -41,10 +41,19 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
+#pragma warning disable ASP0014 // Suggest using top level route registrations
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapControllerRoute(
+//        name: "default",
+//        pattern: "{area=Admin}/{controller=GenreAdmin}/{action=Index}/{id?}"
+//        );
+//});
+//#pragma warning restore ASP0014 // Suggest using top level route registrations
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area=Admin}/{controller=HomeAdmin}/{action=Index}/{id?}");
 app.MapRazorPages();
+
 
 app.Run();
