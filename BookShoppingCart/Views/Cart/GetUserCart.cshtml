@@ -1,4 +1,5 @@
-﻿@model ShoppingCart
+﻿@using Microsoft.IdentityModel.Tokens;
+@model ShoppingCart
 @{
     ViewData["Title"] = "GetUserCart";
 }
@@ -44,13 +45,17 @@ a.button:hover {
                 <tr>
                     <td style="text-align:left">@item.Book.BookName</td>
                     <td>
-                        @if (string.IsNullOrEmpty(item.Book.Image))
+                            @if (!string.IsNullOrEmpty(Convert.ToBase64String(item.Book.Image).ToString()))
                         {
-                            <img src="/images/bookdefault.jpg" width="80px" height="100px">
+                                var base64 = Convert.ToBase64String(item.Book.Image);
+                                var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+                                <img src="@imgsrc" height="100px" width="80px" style="border-radius:100%" />
+                            
                         }
                         else
                         {
-                            <img src="/images/@item.Book.Image" width="80px" height="100px">
+                                <img src="/images/bookdefault.jpg" width="80px" height="100px">
+                            //<img src="/images/@item.Book.Image" width="80px" height="100px">
                         }
                     </td>
                     <td>@item.Book.Genre.GenreName</td>
@@ -78,7 +83,7 @@ a.button:hover {
     else
     {
         <h3>Không có sản phẩm</h3>
-    }
+    } 
 
 </div>
 

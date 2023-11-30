@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace BookShoppingCart.Data.Migrations
+namespace BookShoppingCart.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231016174620_added statuscode in orderstatus")]
-    partial class addedstatuscodeinorderstatus
+    [Migration("20231129083755_DbBook")]
+    partial class DbBook
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,8 +46,9 @@ namespace BookShoppingCart.Data.Migrations
                     b.Property<int>("GenreId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("Image")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
@@ -75,6 +76,9 @@ namespace BookShoppingCart.Data.Migrations
 
                     b.Property<int>("ShoppingCartId")
                         .HasColumnType("int");
+
+                    b.Property<double>("UnitPrice")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

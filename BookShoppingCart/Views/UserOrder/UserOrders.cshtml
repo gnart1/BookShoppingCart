@@ -44,14 +44,18 @@
                                         <tr>
                                             <td style="text-align:left">@item.Book.BookName</td>
                                             <td>
-                                                @if (string.IsNullOrEmpty(item.Book.Image))
-                                                {
-                                                    <img src="/images/bookdefault.jpg" width="80px" height="100px">
-                                                }
-                                                else
-                                                {
-                                                    <img src="/images/@item.Book.Image" width="80px" height="100px">
-                                                }
+                                                    @if (!string.IsNullOrEmpty(Convert.ToBase64String(item.Book.Image).ToString()))
+                                                    {
+                                                        var base64 = Convert.ToBase64String(item.Book.Image);
+                                                        var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+                                                        <img src="@imgsrc" height="100px" width="80px" style="border-radius:100%" />
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="/images/bookdefault.jpg" width="80px" height="100px">
+                                                        //<img src="/images/@item.Book.Image" width="80px" height="100px">
+                                                    }
                                             </td>
                                             <td>@item.Book.Genre.GenreName</td>
                                             <td>@item.Book.Price VNĐ</td>

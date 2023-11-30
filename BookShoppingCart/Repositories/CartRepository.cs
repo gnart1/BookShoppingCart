@@ -141,15 +141,15 @@ namespace BookShoppingCart.Repositories
         public async Task<ShoppingCart> GetUserCart()
         {
             var userId = GetUserId();
-            if(userId == null)
+            if (userId == null)
             {
                 throw new Exception("Invalid userid");
 
             }
-            var shoppingCart = await _context.ShoppingCarts.Include(a=>a.CartDetails)
-                                .ThenInclude(a=>a.Book)
+            var shoppingCart = await _context.ShoppingCarts.Include(a => a.CartDetails)
+                                .ThenInclude(a => a.Book)
                                 .ThenInclude(a => a.Genre)
-                                .Where(a=>a.UserId == userId).FirstOrDefaultAsync();
+                                .Where(a => a.UserId == userId).FirstOrDefaultAsync();
             return shoppingCart;
         }
         public async Task<ShoppingCart> GetCart(string userId)

@@ -10,7 +10,7 @@ namespace BookShoppingCart.Models
         [Required]
         [MaxLength(32)]
         public string? StatusName { get; set; }
-        public string? StatusId { get; set; }
+
 
     }
 }

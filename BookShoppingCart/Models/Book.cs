@@ -6,7 +6,6 @@ namespace BookShoppingCart.Models
     [Table("Book")]
     public class Book
     {
-        
         public int Id { get; set; }
         [Required]
         [MaxLength(32)]
@@ -15,7 +14,7 @@ namespace BookShoppingCart.Models
         public string? AuthorName { get; set; }
         [Required]
         public double Price { get; set; }
-        public string? Image { get; set; }
+        public byte[] Image { get; set; }
         [Required]
         public int GenreId { get; set; }
         public Genre Genre { get; set; }

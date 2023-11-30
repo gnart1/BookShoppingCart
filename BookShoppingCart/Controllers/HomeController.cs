@@ -18,11 +18,11 @@ namespace BookShoppingCart.Controllers
 
         public async Task<IActionResult> Index(string temp = "", int genreId = 0)
         {
-            
+
             IEnumerable<Book> books = await _homeRepository.GetBooks(temp, genreId);
             IEnumerable<Genre> genres = await _homeRepository.GetGenres();
-            BookDisplayModel bookDisplayModel = new BookDisplayModel 
-            { 
+            BookDisplayModel bookDisplayModel = new BookDisplayModel
+            {
                 Books = books,
                 Genres = genres,
                 Temp = temp,
@@ -30,7 +30,10 @@ namespace BookShoppingCart.Controllers
             };
             return View(bookDisplayModel);
         }
-
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
         public IActionResult Privacy()
         {
             return View();

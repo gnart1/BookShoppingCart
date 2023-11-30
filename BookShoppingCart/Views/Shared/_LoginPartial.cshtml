@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿
+@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
@@ -13,11 +14,11 @@
 {
     <li class="nav-item">
         <a  class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
-                Hello <span id="username">@User.Identity?.Name</span>!
+                 Hello <span id="username">@User.Identity?.Name</span>!
                 @if (User.IsInRole("Admin"))
                 {
                     <span>(Admin)</span>
-                }
+                } 
             </a>
     </li>
     <li class="nav-item">
